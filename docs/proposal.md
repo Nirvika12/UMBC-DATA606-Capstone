@@ -68,6 +68,7 @@ Kaggle dataset: [Real-Time Dataset on Academic and Entrepreneurial Development](
 
 | Column                                        | Type        | Definition                             | Possible Values                                |
 | --------------------------------------------- | ----------- | -------------------------------------- | ---------------------------------------------- |
+| `Student_ID`                                  | String      | Unique identifier for each student     | S000001, S000002
 | `Age`                                         | Int         | Age of student                         | 18–22                                          |
 | `Gender`                                      | Categorical | Gender of student                      | Male, Female, Other                            |
 | `Major`                                       | Categorical | Academic major                         | Business, Engineering, Arts, Sciences          |
@@ -125,7 +126,6 @@ Reason for choosing Startup_Success as the target:
 ### Columns Dropped
 The following columns are removed from the dataset:
 
-`Student_ID` → Just an identifier
 `Funding_Secured`, `Startup_Founded`, `Prototypes_Developed`, `Prototype_Completion`, `Competitions_Won`, `Research_Publications`, `Employment_in_Entrepreneurial_Roles`, `Business_Plan_Quality_Score` , `Entrepreneurial_Talent_Level`, `Innovative_Skill_Score` 
 
 Reason for dropping these columns:
