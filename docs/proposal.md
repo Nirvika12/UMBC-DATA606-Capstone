@@ -49,8 +49,6 @@ Key Benefits
 
 Kaggle dataset: [Real-Time Dataset on Academic and Entrepreneurial Development](https://www.kaggle.com/datasets/datasetengineer/academic-and-entrepreneurial-development-dataset/data)
 
-* Local copy:  Split into 3 parts for easier handling on GitHub : 
-
 ### Data Size and Shape
 
 * ~214,354 records, 49 columns.
