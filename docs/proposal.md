@@ -13,6 +13,9 @@
 ---
 
 ## Background
+
+Many student startups struggle to sustain themselves because we lack clear ways to identify success factors early on. This project is necessary to bridge that gap and guide future entrepreneurial support.
+
 This dataset contains student-level information used to predict startup success. It includes demographic, academic, extracurricular, and personal development attributes. The goal is to identify which factors contribute to a student successfully launching a startup.
 
 The primary objective of this study is to predict student startup success using academic performance, behavioral traits, and entrepreneurial development factors. By analyzing this dataset, the project aims to identify which academic indicators, extracurricular activities, and entrepreneurial traits contribute most significantly to the likelihood of students successfully founding and sustaining startups.
