@@ -1,0 +1,363 @@
+# UMBC DATA606 Capstone – Predicting Student Startup Success
+
+**Project Title:** Predicting Student Startup Success Using Team, Innovation, and Support Factors  
+**Prepared for:** Dr. Chaojie (Jay) Wang  
+**Author:** Nirvika Rajendra  
+**GitHub Repository:** [https://github.com/Nirvika12/UMBC-DATA606-Capstone](https://github.com/Nirvika12/UMBC-DATA606-Capstone)  
+**LinkedIn Profile:** [https://www.linkedin.com/in/nirvika-rajendra-70555b2b2/](https://www.linkedin.com/in/nirvika-rajendra-70555b2b2/)  
+
+---
+
+## 2. Background
+
+Student entrepreneurship is a growing field of innovation and economic development. Across universities worldwide, student-led startups have become a critical mechanism for transforming academic ideas into viable business ventures. However, while many student startups emerge every year, only a small percentage achieve sustainable success.  
+
+This project aims to **predict the success of student-led startup projects** using data-driven methods. The dataset captures key dimensions of team composition, innovation, institutional support, and market readiness across 40 academic institutions between **2019 and 2023**.  
+
+By identifying which factors — such as **team experience**, **innovation level**, **funding**, **mentorship**, and **incubation** — most influence startup success, this project contributes to understanding how universities can enhance their entrepreneurial ecosystems.
+
+### Why It Matters
+
+Student entrepreneurship contributes to:
+1. **Innovation:** Encouraging creative problem-solving and applied research.  
+2. **Economic growth:** Successful startups create employment and regional development.  
+3. **Policy design:** Universities can tailor incubation, mentorship, and funding programs for higher success rates.  
+4. **Sustainability:** Data-driven decision-making helps optimize limited institutional resources.  
+
+This research helps institutions identify **what factors truly matter** — guiding better support for early-stage founders.
+
+### Research Questions
+
+1. Which project-related factors best predict the success of student-led startups?  
+2. How do team characteristics (size, experience) influence outcomes?  
+3. What role do innovation and technology maturity play in success prediction?  
+4. How impactful are institutional supports like mentorship and incubation?  
+5. Can machine learning models effectively classify startups as successful or unsuccessful?
+
+---
+
+## 3. Data
+
+### Data Source
+
+Dataset from Kaggle: [Student Startup Success Dataset](https://www.kaggle.com/datasets/ziya07/student-startup-success-dataset/data)  
+
+The dataset consolidates information from **40 academic institutions** and includes **2,100 startup projects** from **2019–2023**.
+
+### Data Size and Structure
+- **Records:** ~2,100  
+- **Columns:** 16  
+- **File Size:** ~175kb (CSV format)  
+- **Time Period:** 2019–2023  
+- **Observation Unit:** Each record represents one **student startup project**.
+
+### Data Dictionary
+
+| Column                   | Type        | Description                                       | Possible Values / Range                          |
+| ------------------------ | ----------- | ------------------------------------------------- | ------------------------------------------------ |
+| `project_id`             | String      | Unique project identifier                         | Alphanumeric (e.g., P0001, P0002, etc.)          |
+| `institution_name`       | Categorical | Name of the institution                           | University/college names e.g. (Institution_39)                |
+| `institution_type`       | Categorical | Type of institution                               | Public, Private, Technical, Non-tech             |
+| `project_domain`         | Categorical | Startup domain (sector/industry)                  | AgriTech, FinTech, GreenTech, HealthTech, EdTech |
+| `team_size`              | Integer     | Number of students in the startup team            | 1–10+                                            |
+| `avg_team_experience`    | Float       | Average years of prior entrepreneurial experience | 0–10                                             |
+| `innovation_score`       | Float       | Novelty/originality score normalized (0–1)        | 0–1                                              |
+| `funding_amount_usd`     | Float       | Initial funding received in USD                   | 0 – Millions                                     |
+| `mentorship_support`     | Binary      | Mentorship received                               | 0 or 1 (1 = Yes, 0 = No)                         |
+| `incubation_support`     | Binary      | Whether incubated                                 | 0 or 1 (1 = Yes, 0 = No)                         |
+| `market_readiness_level` | Integer     | Stage of product readiness                        | 1–5 (1 = idea, 5 = market-ready)                 |
+| `competition_awards`     | Integer     | Number of awards won                              | 0+                                               |
+| `business_model_score`   | Float       | Clarity and scalability of business model (0–1)   | 0–1                                              |
+| `technology_maturity`    | Integer     | Maturity level of technology                      | 1–5 (1 = prototype, 5 = production)              |
+| `year`                   | Integer     | Year project was submitted                        | 2019–2023                                        |
+| `success_label`          | Binary      | Target variable: success or failure               | 0 or 1 (1 = Success, 0 = Failure)                |
+
+
+### Target and Predictors
+
+- **Target Variable:** `success_label` (binary classification)  
+- **Predictors:** All other columns, including `innovation_score`, `funding_amount_usd`, `mentorship_support`, and `market_readiness_level` etc.
+
+---
+
+## Methodology
+
+The project follows a structured analytical pipeline:
+
+1. **Data Quality and Preprocessing**
+    Initial inspection revealed:
+    - No missing data.  
+    - No duplicate records.  
+    - No extreme values detected.  
+    - Text-based categorical variables were standardized (lowercase, underscore format).  
+These steps ensured a **tidy and consistent dataset** for EDA and model preparation.
+
+2. **Exploratory Data Analysis (EDA):**
+   - Examine distributions and correlations among key features.
+   - Identify variables most associated with startup success.
+
+3. **Feature Engineering:**
+   - Create new derived metrics:
+     - `funding_per_member = funding_amount_usd / team_size`
+     - `innovation_per_member = innovation_score / team_size`
+     - `innovation_support_index = innovation_score * (mentorship_support + incubation_support + 1)`
+
+   - Normalize/scale continuous variables as needed.
+
+4. **Model Development (next phase):**
+   - Train models such as **Random Forest**, **XGBoost**, and **Logistic Regression**.
+   - Evaluate using **accuracy**, **precision**, **recall**, and **F1-score**.
+   - Identify **feature importance** to interpret key success drivers.
+
+5. **Application Development:**
+   - Build a **Streamlit web app** for interactive success prediction.
+
+---
+
+## 4. Exploratory Data Analysis (EDA)
+
+### 4.1 Overview
+
+The EDA focused on understanding the distribution of variables, identifying patterns that differentiate successful startups from unsuccessful ones, and assessing the influence of institutional support and innovation.
+
+The following key analyses were conducted:
+- Missing value inspection and data cleaning.  
+- Distribution analysis of numeric and categorical variables.  
+- Correlation analysis to identify strong predictors of success.  
+- Visualization of relationships between features and outcomes.
+
+---
+
+### 4.2 Data Cleaning and Preparation
+
+The dataset was found to be clean, consistent, and well-structured, requiring minimal preprocessing.  
+Key validation checks confirmed the following:
+
+- **Missing Values:** No missing data were found across any columns, ensuring complete information for all startup records.  
+- **Duplicates:** No duplicate rows were detected.  
+- **Categorical Standardization:** Text-based categorical variables (`institution_type`, `institution_name`, and `project_domain`) were standardized to lowercase and underscore-separated to maintain uniform formatting and ensure compatibility during machine learning encoding.  
+- **Domain Normalization:** The `project_domain` variable was mapped to standardized labels for analytical clarity, resulting in the following categories:  
+  - `agricultural_technology`  
+  - `financial_technology`  
+  - `green_environmental_technology`  
+  - `healthcare_technology`  
+  - `educational_technology`  
+- **Outlier Detection:** Statistical inspection confirmed that all numerical features (e.g., `funding_amount_usd`, `team_size`, `innovation_score`) were within reasonable and expected ranges, with no extreme values requiring adjustment.
+
+Overall, the dataset was **complete, consistent, and analysis-ready**, making it ideal for exploratory data analysis (EDA) and subsequent model development.
+
+---
+
+### 4.3 Summary Statistics
+
+The dataset includes 2,100 startup projects. Team sizes range from 2 to 7 members (mean ≈ 4.5).
+Average team experience is 2.3 years, while the mean innovation score is 0.65 on a 0–1 scale.
+Funding values range from approximately `$1,000 to $50,000`, with an average of $25,372, indicating moderate funding variability.
+Around half of the projects received mentorship and incubation support.
+The success rate is 41.9%, suggesting a balanced target distribution suitable for classification modeling.
+
+---
+
+### 4.4 Visual Insights
+
+#### (a) Success Distribution
+
+![Success Distribution](/docs/eda-plots/Distribution-of-Startup.png)
+
+> The dataset shows a relatively balanced distribution of startup outcomes. Approximately **41.95%** of student-led startups were successful, while **58.05%** were unsuccessful.  
+> Although slightly skewed toward failure, the distribution indicates that the dataset maintains a good balance for binary classification modeling - neither class is overwhelmingly dominant.  
+
+> This suggests that predictive models trained on this data are unlikely to suffer from severe class imbalance issues, allowing for reliable performance evaluation across both successful and unsuccessful startups.
+
+#### (b) Distribution of Institution Type by Startup Success
+
+![Institution Type](/docs/eda-plots/Distribution-of-Institution-Type.png)
+
+> All institution types contributed both successful and unsuccessful startups.  
+> Among the 2,100 total projects, **non-technical (549)** and **public (546)** institutions had the highest participation, followed closely by **technical (508)** and **private (497)** institutions.  
+
+> Across all categories, the proportion of **failed startups** is slightly higher than successful ones - for instance, non-technical institutions recorded **300 failed** versus **249 successful** projects,  
+and technical institutions had **296 failed** versus **212 successful**.  
+
+> This pattern suggests that startup outcomes are relatively consistent across institution types,  
+with no single category demonstrating a markedly higher success rate.  
+>Institutional environment may influence participation volume more than success likelihood.
+
+
+#### (c) Success/Failure Distribution by Project Domain
+
+![Project Domain](/docs/eda-plots/Distribution-by-Project-Domain.png)
+
+> Across all five domains, both successful and unsuccessful startups are represented.  
+> The largest participation is seen in **Agricultural Technology (439 projects)**, followed by **Financial (425)** and **Green Technology (422)**.  
+> While the number of failed startups slightly exceeds successful ones in every category, the **success proportions are relatively consistent** — roughly 40–45% of projects succeed regardless of domain.  
+> This suggests that innovation sector alone may not be a strong predictor of startup success in the dataset.
+
+
+#### (d) Density Plots of Numerical Variables
+
+![Density Plots](/docs/eda-plots/density-numerical.png)
+
+>The density plots indicate that most numerical features follow roughly normal or slightly right-skewed distributions.  
+`funding_amount_usd` display higher variance, suggesting diverse funding across startups.  
+>In contrast, `innovation_score` and `business_model_score` are more concentrated, indicating consistent scoring patterns among student startups.  
+Overall, the numerical features show well-distributed data without extreme skewness or irregularities, making them suitable for predictive modeling.
+
+#### (e) Funding and Innovation vs Startup Success
+
+![Funding and Innovation](/docs/eda-plots/Funding-Amount-vs-Startup-Success.png)
+
+>Successful startups exhibit **higher median funding levels** and **greater innovation scores** compared to unsuccessful ones.  
+>The funding box plot shows a clear upward shift for successful projects, suggesting that access to financial resources may enhance the likelihood of success.  
+>Similarly, successful ventures have higher innovation scores, indicating that creativity and technological novelty contribute to positive outcomes.  
+>Together, these findings emphasize the importance of both **innovation** and **financial support** in predicting startup success.
+
+
+#### (f) Average Team Experience by Startup Success
+
+![Average Team Experience](/docs/eda-plots/Average-Team-Experience.png)
+
+>The analysis of average team experience revealed similar distributions between successful and failed startups.  
+>The mean experience level for successful teams (2.31 years) was only slightly higher than for unsuccessful teams (2.24 years), and both groups exhibited a comparable range of 0.5–4.0 years.  
+>This minimal variation indicates that prior entrepreneurial experience is not a decisive factor in determining startup outcomes.  
+>Instead, success likely depends on complementary aspects such as innovation, mentorship, and institutional support.
+
+#### (g) Business Model Score by Startup Success
+
+![Business Model Score](/docs/eda-plots/Business-Model-Score.png)
+
+>The analysis of business model scores demonstrates a distinct difference between successful and failed student startups.  
+>Successful startups exhibit a higher average score (mean = 0.66, median = 0.70) compared to failed ones (mean = 0.55, median = 0.52), with both groups showing similar variability (std ≈ 0.23).  
+>The KDE distribution further highlights this trend, as the success curve is shifted toward higher scores, indicating that startups with more structured, scalable, and coherent business models are more likely to succeed.  
+>This finding reinforces the importance of strategic planning and a well-defined business foundation in determining the long-term success of student-led ventures.
+
+### (h) Trends of Numeric Features Over Time by Startup Success
+
+![Numeric Features](/docs/eda-plots/Numeric-Features.png)
+
+> 1. The multi-feature line plots illustrate the yearly progression (2019–2023) of key quantitative factors for both successful and failed startups.
+> 2. Overall, successful startups demonstrate higher average values across critical attributes such as innovation score, business model score, and technology maturity, indicating stronger operational maturity and planning.
+> 3. Funding levels and team experience show modest growth over time, reflecting a general improvement in project quality among student-led ventures.
+> 4. In contrast, failed startups maintain lower average scores across most dimensions, suggesting that a combination of innovation, technological readiness, and structured business models contributes substantially to startup success.
+
+
+#### (i) Correlation Heatmap
+
+![Correlation Heatmap](/docs/eda-plots/CorrelationHeatmap.png)
+
+ > 1. Funding Amount (r = 0.39) shows the strongest positive correlation with startup success, highlighting the critical role of financial support in achieving favorable outcomes.
+>  2. Mentorship Support (r = 0.37) and Incubation Support (r = 0.37) both have strong positive relationships with success, confirming that institutional and expert guidance significantly enhance startup performance.
+>  3. Innovation Score (r = 0.34) also correlates positively, suggesting that originality and creativity are essential contributors to successful student ventures.
+>  4. Business Model Score (r = 0.24) and Technology Maturity (r = 0.19) demonstrate moderate associations, emphasizing that structured business planning and technically mature products improve the chances of success.
+>  5. Market Readiness Level (r = 0.16) shows a mild correlation, indicating that projects closer to commercialization tend to perform slightly better.
+>  6. Team Size (-0.06) and Average Team Experience (0.03) exhibit weak correlations, implying that team structure and experience alone do not significantly influence outcomes without adequate innovation and support mechanisms.
+>  7. Competition Awards (-0.01) and Year (0.01) have minimal correlation, suggesting these factors are not directly tied to startup success in this dataset.
+
+---
+
+### 4.5 Key Insights
+
+#### Descriptive Statistics of Successful Startups by Domain
+
+To identify patterns among successful student startups, key statistics (median team size, mean innovation score, average funding, and average team experience) were computed for each project domain.
+
+| Project Domain                  | Team Size | Innovation Score | Funding (USD) | Avg. Team Experience (Years) |
+|----------------------------------|-----------:|-----------------:|---------------:|-----------------------------:|
+| Agricultural Technology          | 4.0        | 0.73             | 33,175.26      | 2.35                        |
+| Educational Technology           | 4.0        | 0.75             | 31,801.39      | 2.30                        |
+| Financial Technology             | 4.0        | 0.72             | 31,668.31      | 2.27                        |
+| Green Environmental Technology   | 4.0        | 0.74             | 31,234.39      | 2.25                        |
+| Healthcare Technology            | 4.0        | 0.71             | 31,883.56      | 2.39                        |
+
+**Observations:**
+- All domains show a **median team size of four**, indicating that small to medium teams are the most common configuration among successful ventures.  
+- **Educational Technology (0.75)** and **Green Environmental Technology (0.74)** demonstrate the **highest innovation scores**, suggesting these sectors encourage creative and forward-thinking solutions.  
+- **Agricultural Technology** projects receive the **highest average funding (~$33,175)**, potentially reflecting increased investment in sustainability and agri-tech solutions.  
+- **Healthcare Technology** teams show slightly higher **average experience (2.39 years)**, implying that domain knowledge and prior exposure may be particularly valuable in this sector.  
+- Overall, successful startups maintain **balanced innovation, moderate experience, and comparable funding** across all domains, with small variations indicating domain-specific strengths rather than structural differences.
+
+
+#### Descriptive Statistics of Successful Startups by Institution Type
+
+To assess the influence of institutional environments on startup outcomes, descriptive statistics were calculated for successful student startups across different institution types.
+
+| Institution Type | Team Size | Innovation Score | Funding (USD) | Avg. Team Experience (Years) |
+|------------------|-----------:|-----------------:|---------------:|-----------------------------:|
+| Non-Technical    | 4.0        | 0.739            | 32,511.49      | 2.25                        |
+| Private          | 4.0        | 0.723            | 32,582.30      | 2.34                        |
+| Public           | 4.0        | 0.741            | 31,362.54      | 2.40                        |
+| Technical        | 4.0        | 0.718            | 31,327.08      | 2.27                        |
+
+**Observations:**
+- All institution types show a **consistent median team size of four**, confirming a stable collaborative structure among successful ventures.  
+- **Public (0.74)** and **Non-Technical (0.74)** institutions record the **highest innovation scores**, reflecting stronger creativity and ideation culture in these settings.  
+- **Private institutions** show slightly higher **average funding (~$32,582)**, suggesting more access to private or corporate investment channels.  
+- **Public institutions** exhibit the **highest average experience (2.40 years)**, possibly due to exposure to structured entrepreneurship programs and mentorship networks.  
+- Overall, differences among institution types are minor, implying that **institutional support mechanisms** play a more crucial role than structural or categorical differences.
+
+
+#### Startup Success Distribution by Institution Type
+
+The relationship between institution type and startup success was analyzed by grouping projects according to success outcomes.
+
+- **Non-technical institutions** demonstrate the **highest success rate (~45%)**, suggesting that diverse or interdisciplinary project environments may foster stronger entrepreneurial outcomes.  
+- **Public** and **Technical institutions** show comparable success rates (~42%), indicating stable performance likely supported by structured programs and technical expertise.  
+- **Private institutions**, while contributing a large volume of projects, exhibit a slightly lower success rate (~39%), hinting at potential gaps in mentorship or funding access.  
+
+Overall, the findings suggest that while institutional type has only a **moderate impact** on success, **non-technical institutions** may offer more flexible, cross-domain innovation spaces that support stronger startup outcomes.
+
+1. **Innovation and Funding** are the most powerful predictors of startup success.  
+2. **Institutional Support** (mentorship and incubation) correlates strongly with better outcomes.  
+3. **Team Experience** plays a supporting role but is less critical than innovation intensity.  
+4. **Business Model Clarity** and **Technology Maturity** also contribute meaningfully to overall success.  
+5. The dataset is **clean, balanced, and ready** for predictive model training.
+
+---
+### 4.6 Feature Engineering
+
+After completing exploratory analysis, several new features were engineered to enhance the dataset’s predictive power and capture key relationships between innovation, funding, and institutional support.
+
+#### Engineered Features
+
+| Feature Name | Description | Formula / Logic | Expected Insight |
+|---------------|-------------|-----------------|------------------|
+| **innovation_per_member** | Measures innovation efficiency per team member | `innovation_score / team_size` | Higher per-capita innovation may lead to success |
+| **funding_per_member** | Funding efficiency per member | `funding_amount_usd / team_size` | Reflects resource utilization efficiency |
+| **innovation_support_index** | Combines innovation with institutional backing | `innovation_score * (mentorship_support + incubation_support + 1)` | Captures synergy between creativity and support |
+| **innovation_funding_interaction** | Joint influence of innovation and funding | `innovation_score * funding_amount_usd` | Measures how funding amplifies innovation |
+| **total_support** | Total mentorship and incubation support | `mentorship_support + incubation_support` | Indicates institutional involvement |
+
+#### Correlation Results
+
+![Correlation Engineered Features ](/docs/eda-plots/correlation-featured.png)
+
+| Feature | Correlation with Success |
+|----------|--------------------------:|
+| Innovation Support Index | 0.61 |
+| Total Support | 0.52 |
+| Innovation–Funding Interaction | 0.51 |
+| Funding per Member | 0.29 |
+| Innovation per Member | 0.23 |
+
+#### Interpretation
+
+- **Innovation Support Index (0.61)** shows the strongest relationship with success, confirming that innovation combined with institutional mentorship and incubation significantly drives outcomes.  
+- **Total Support (0.52)** and **Innovation–Funding Interaction (0.51)** indicate that institutional and financial backing amplify startup potential when aligned with innovative ideas.  
+- **Efficiency metrics** (*funding per member* and *innovation per member*) have moderate correlations, suggesting resource utilization contributes but is less critical than combined support.  
+- These engineered variables outperform original features in correlation strength, validating their inclusion for model training.
+
+
+The feature engineering process substantially improved the dataset’s explanatory capability by creating new, meaningful variables.  
+These features capture multi-dimensional aspects of startup performance — innovation, funding efficiency, and institutional support — that were not fully represented in the original dataset.  
+The next step involves leveraging these refined features to train and evaluate predictive models for startup success.
+
+### Next steps:
+1. Proceeding to Model Training using both original and engineered features.
+2. Splitting the dataset into training and test sets (80/20) for unbiased evaluation.
+3. Appling and compare multiple machine-learning models such as Logistic Regression, Random Forest, and XGBoost.
+4. To use key metrics — Accuracy, Precision, Recall, F1-Score, and ROC-AUC — to assess model performance.
+5. Perform feature importance analysis to identify which factors most strongly drive startup success.
+
+Once the best-performing model is selected, develop an interactive Streamlit web app that allows users to input startup attributes and receive real-time success predictions.
+
+
