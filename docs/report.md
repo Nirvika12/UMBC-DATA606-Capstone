@@ -162,7 +162,7 @@ The success rate is 41.9%, suggesting a balanced target distribution suitable fo
 
 #### (a) Success Distribution
 
-![Success Distribution](/docs/eda-plots/Distribution-of-Startup.png)
+![Success Distribution](/docs/eda-plots/Distribution-of-Startup-Success.png)
 
 > The dataset shows a relatively balanced distribution of startup outcomes. Approximately **41.95%** of student-led startups were successful, while **58.05%** were unsuccessful.  
 > Although slightly skewed toward failure, the distribution indicates that the dataset maintains a good balance for binary classification modeling - neither class is overwhelmingly dominant.  
@@ -171,7 +171,7 @@ The success rate is 41.9%, suggesting a balanced target distribution suitable fo
 
 #### (b) Distribution of Institution Type by Startup Success
 
-![Institution Type](/docs/eda-plots/Distribution-of-Institution-Type.png)
+![Institution Type](/docs/eda-plots/Institution-type.png)
 
 > All institution types contributed both successful and unsuccessful startups.  
 > Among the 2,100 total projects, **non-technical (549)** and **public (546)** institutions had the highest participation, followed closely by **technical (508)** and **private (497)** institutions.  
@@ -186,7 +186,7 @@ with no single category demonstrating a markedly higher success rate.
 
 #### (c) Success/Failure Distribution by Project Domain
 
-![Project Domain](/docs/eda-plots/Distribution-by-Project-Domain.png)
+![Project Domain](/docs/eda-plots/Project-Domain.png)
 
 > Across all five domains, both successful and unsuccessful startups are represented.  
 > The largest participation is seen in **Agricultural Technology (439 projects)**, followed by **Financial (425)** and **Green Technology (422)**.  
@@ -205,7 +205,7 @@ Overall, the numerical features show well-distributed data without extreme skewn
 
 #### (e) Funding and Innovation vs Startup Success
 
-![Funding and Innovation](/docs/eda-plots/Funding-Amount-vs-Startup-Success.png)
+![Funding and Innovation](/docs/eda-plots/Funding-Amount.png)
 
 >Successful startups exhibit **higher median funding levels** and **greater innovation scores** compared to unsuccessful ones.  
 >The funding box plot shows a clear upward shift for successful projects, suggesting that access to financial resources may enhance the likelihood of success.  
@@ -215,21 +215,34 @@ Overall, the numerical features show well-distributed data without extreme skewn
 
 #### (f) Average Team Experience by Startup Success
 
-![Average Team Experience](/docs/eda-plots/Average-Team-Experience.png)
+![Average Team Experience](/docs/eda-plots/Team-Experience.png)
 
->The analysis of average team experience revealed similar distributions between successful and failed startups.  
->The mean experience level for successful teams (2.31 years) was only slightly higher than for unsuccessful teams (2.24 years), and both groups exhibited a comparable range of 0.5–4.0 years.  
->This minimal variation indicates that prior entrepreneurial experience is not a decisive factor in determining startup outcomes.  
->Instead, success likely depends on complementary aspects such as innovation, mentorship, and institutional support.
+>The box plot compares the average team experience between successful and failed startups.
+>Successful startups (green) have a slightly higher mean team experience of 2.31 years, compared to 2.24 years for failed startups (red).
+>The median experience for successful startups is 2.34 years, while for failed ones it is 2.25 years.
+>Both groups show similar variability (standard deviation ≈ 1.0), indicating that experience levels vary widely across teams regardless of outcome.
+>While the difference is modest, the trend suggests that teams with slightly higher average experience tend to achieve better startup outcomes. Experienced teams may be more adept at strategic decision-making and handling startup challenges effectively.
 
 #### (g) Business Model Score by Startup Success
 
-![Business Model Score](/docs/eda-plots/Business-Model-Score.png)
+![Business Model Score](/docs/eda-plots/Business-Model.png)
 
->The analysis of business model scores demonstrates a distinct difference between successful and failed student startups.  
->Successful startups exhibit a higher average score (mean = 0.66, median = 0.70) compared to failed ones (mean = 0.55, median = 0.52), with both groups showing similar variability (std ≈ 0.23).  
->The KDE distribution further highlights this trend, as the success curve is shifted toward higher scores, indicating that startups with more structured, scalable, and coherent business models are more likely to succeed.  
->This finding reinforces the importance of strategic planning and a well-defined business foundation in determining the long-term success of student-led ventures.
+> The `business_model_score` represents a numerical rating (0–1) that measures how well-defined, feasible, and scalable each startup’s business model is.
+> It captures how clearly the startup explains:
+> 1. What problem it solves
+> 2. Who the target customers are
+> 3. How it generates revenue, and
+> 4. How scalable or sustainable the model is.
+
+**Summary:**  
+>- The box plot compares business model scores between successful and failed startups.
+>- Successful startups (green) have a higher mean business model score of 0.66, compared to 0.55 for failed startups (red).
+>- The median score for successful startups is 0.70, while for failed startups it is 0.52, indicating a clear upward shift in performance.
+
+> Both groups have similar variability (standard deviation ≈ 0.23), but the overall distribution shows that successful startups consistently achieve stronger business model evaluations.
+
+> This suggests that startups with well-structured and viable business models are significantly more likely to succeed. A higher business model score reflects better planning, clearer value propositions, and sustainable revenue approaches — all of which contribute to greater success potential.
+
 
 ### (h) Trends of Numeric Features Over Time by Startup Success
 
