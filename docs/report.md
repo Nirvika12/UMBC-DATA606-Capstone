@@ -206,6 +206,8 @@ Overall, the numerical features show well-distributed data without extreme skewn
 #### (e) Funding and Innovation vs Startup Success
 
 ![Funding and Innovation](/docs/eda-plots/Funding-Amount.png)
+![Funding and Innovation](/docs/eda-plots/Innovation-Score.png)
+
 
 >Successful startups exhibit **higher median funding levels** and **greater innovation scores** compared to unsuccessful ones.  
 >The funding box plot shows a clear upward shift for successful projects, suggesting that access to financial resources may enhance the likelihood of success.  
