@@ -63,7 +63,10 @@ with col1:
     
     funding_amount_usd = st.number_input(
         "Funding Amount (USD)",
-        0.0, 10_000_000.0, 100_000.0,
+        min_value=0.0,
+        max_value=10_000_000.0,
+        value=100_000.0,
+        step=5000.0,     
         help="Initial funding received by the startup in U.S. dollars"
     )
 
