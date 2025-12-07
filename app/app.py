@@ -3,8 +3,8 @@ import pandas as pd
 import joblib
 
 # --- Load model and scaler ---
-model = joblib.load("logreg_model.pkl")
-scaler = joblib.load("scaler.pkl")
+model = joblib.load("app/logreg_model.pkl")
+scaler = joblib.load("app/scaler.pkl")
 
 st.set_page_config(page_title="Startup Success Predictor", layout="centered")
 
