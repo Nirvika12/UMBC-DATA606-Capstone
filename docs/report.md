@@ -362,17 +362,166 @@ After completing exploratory analysis, several new features were engineered to e
 - These engineered variables outperform original features in correlation strength, validating their inclusion for model training.
 
 
-The feature engineering process substantially improved the dataset’s explanatory capability by creating new, meaningful variables.  
-These features capture multi-dimensional aspects of startup performance — innovation, funding efficiency, and institutional support — that were not fully represented in the original dataset.  
-The next step involves leveraging these refined features to train and evaluate predictive models for startup success.
+## 5. Model Training
 
-### Next steps:
-1. Proceeding to Model Training using both original and engineered features.
-2. Splitting the dataset into training and test sets (80/20) for unbiased evaluation.
-3. Appling and compare multiple machine-learning models such as Logistic Regression, Random Forest, and XGBoost.
-4. To use key metrics — Accuracy, Precision, Recall, F1-Score, and ROC-AUC — to assess model performance.
-5. Perform feature importance analysis to identify which factors most strongly drive startup success.
+This section documents the exact modeling approach, evaluation metrics, and results obtained from the Jupyter Notebook used in this project. All values reported below are derived directly from the implemented experiments.
 
-Once the best-performing model is selected, develop an interactive Streamlit web app that allows users to input startup attributes and receive real-time success predictions.
+---
+
+### 5.1 Predictive Models Implemented
+
+Given the binary classification problem (startup success vs. failure), multiple supervised learning models were trained and evaluated to compare performance and interpretability.
+
+#### Logistic Regression
+- Used as a strong and interpretable baseline model  
+- Helps understand feature importance and directionality  
+
+#### Random Forest Classifier (with HyperTuning)
+- Captures non-linear relationships and feature interactions  
+- Robust to noise and multicollinearity  
+
+Each model was trained using:
+- **Original feature set**
+- **Engineered feature set** (after encoding and transformations)
+
+---
+
+### 5.2 Training Strategy
+
+#### Train–Test Split
+The dataset was divided using an **80/20 train–test split**:
+- **80%** of the data used for training  
+- **20%** held out for final evaluation  
+
+This ensures that all reported results reflect performance on unseen data.
+
+#### Preprocessing Steps
+- Categorical variables encoded using **one-hot encoding**
+- Numerical features scaled where required
+- Target variable (`success`) encoded as binary  
+  - `0` = Unsuccessful startup  
+  - `1` = Successful startup  
+
+---
+
+### 5.3 Python Libraries and Tools
+
+The following Python libraries were used in model development and evaluation:
+
+- **pandas** – Data cleaning and manipulation  
+- **numpy** – Numerical computations  
+- **scikit-learn** – Model training, preprocessing, and evaluation  
+- **plotly.express** – Interactive EDA and performance visualizations  
+- **matplotlib** – Supplementary plots  
+
+---
+
+### 5.4 Development Environment
+
+- Local machine (laptop)
+- **Jupyter Notebook** for experimentation and documentation
+- **GitHub** for version control and reproducibility
+
+---
+
+### 5.5 Model Evaluation Metrics
+
+Model performance was evaluated using multiple classification metrics:
+
+- **Accuracy** – Overall correctness of predictions  
+- **Precision** – Proportion of correctly predicted successful startups  
+- **Recall** – Ability to identify truly successful startups  
+- **F1-Score** – Harmonic mean of precision and recall  
+- **ROC-AUC** – Ability of the model to distinguish between classes  
+
+Additionally, **confusion matrices** and **ROC curves** were analyzed to better understand classification behavior.
+
+---
+
+### 5.6 Model Performance Comparison
+
+Model performance was evaluated across two feature sets:
+- **Set 1:** Original features
+- **Set 2:** Original + engineered features
+
+For the Random Forest model, an additional tuned version was evaluated using hyperparameter optimization.
+
+The table below summarizes the evaluation metrics obtained on the test dataset.
+
+![Model Comparision](/docs/model-plots/ComparisionTable.png)
+
+---
+
+### 5.7 Model Selection and Analysis
+
+Among all evaluated models and feature sets, **Logistic Regression trained on the original feature set (Set 1)** achieved the best overall performance.
+
+Key observations include:
+
+- Logistic Regression outperformed Random Forest across all evaluation metrics
+- The **original feature set** consistently produced better results than the engineered feature set
+- Hyperparameter tuning for Random Forest resulted in marginal ROC-AUC improvement but did not improve accuracy or F1-score
+- The Logistic Regression model demonstrated near-perfect class separation with a ROC-AUC of **0.9992**
+
+Based on these results, **Logistic Regression (Set 1)** was selected as the final model due to:
+
+- Highest accuracy and F1-score
+- Exceptional ROC-AUC performance
+- Model simplicity and interpretability
+- Lower risk of overfitting on a relatively small dataset
+
+This balance of performance and interpretability makes Logistic Regression well-suited for deployment in decision-support applications.
+
+### 5.8 Feature Importance Analysis
+
+To improve interpretability and understand the drivers of startup success, feature importance was analyzed using the coefficients from the final Logistic Regression model.
+
+Figure below shows the **top 10 predictors of student startup success**, ranked by the magnitude of their logistic regression coefficients. Positive coefficients indicate a higher likelihood of startup success, while negative coefficients indicate a lower likelihood.
+
+![Model Comparision](/docs/model-plots/TopPredictors.png)
+
+**Key observations:**
+
+- **Funding amount (USD)** emerged as the strongest predictor of startup success, highlighting the importance of financial backing.
+- **Incubation support** and **mentorship support** showed strong positive influence, reinforcing the value of structured guidance and institutional resources.
+- **Innovation score** and **business model score** also played a significant role, suggesting that idea quality and strategic planning are critical success factors.
+- Features related to **technology maturity** and **market readiness** contributed positively but with relatively lower impact.
+- Institution-specific features showed minimal or negative influence, indicating that startup success is more dependent on venture-level characteristics than institutional affiliation.
+
+These results align with real-world expectations and provide actionable insights for university entrepreneurship programs and student founders.
+
+### 5.9 ROC Curve Analysis
+
+The Receiver Operating Characteristic (ROC) curve was used to evaluate the classification performance of the trained models across different decision thresholds.
+
+Figure below presents the ROC curve for the final Logistic Regression model. The model achieved a **ROC-AUC score of 0.9992**, indicating near-perfect discrimination between successful and unsuccessful student startups.
+
+This strong performance demonstrates that the model effectively separates the two classes and confirms its suitability for deployment in a decision-support application.
+
+![Model Comparision](/docs/model-plots/ROC-Curve.png)
+
+### 5.10 Confusion Matrix Analysis
+
+To further evaluate classification performance, a confusion matrix was analyzed for the final Logistic Regression model.
+
+The confusion matrix results are as follows:
+
+- **True Negatives (TN): 242**  
+- **False Positives (FP): 2**  
+- **False Negatives (FN): 10**  
+- **True Positives (TP): 166**
+
+These results indicate that the model performs exceptionally well in distinguishing between successful and unsuccessful student startups.
+
+**Interpretation:**
+
+- The high number of **true negatives (242)** shows that the model accurately identifies unsuccessful startups.
+- The very low number of **false positives (2)** indicates a minimal risk of incorrectly predicting success for unsuccessful startups.
+- The model correctly identified **166 successful startups**, demonstrating strong predictive capability.
+- A small number of **false negatives (10)** suggests that some successful startups were misclassified as unsuccessful, which may be addressed in future work through additional features or threshold tuning.
+
+Overall, the confusion matrix confirms the robustness and reliability of the Logistic Regression model for this classification task.
+
+![Model Comparision](/docs/model-plots/ConfusionMatrix.png)
 
 
