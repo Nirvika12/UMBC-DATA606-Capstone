@@ -3,6 +3,7 @@
 **Project Title:** Predicting Student Startup Success Using Team, Innovation, and Support Factors  
 **Prepared for:** Dr. Chaojie (Jay) Wang  
 **Author:** Nirvika Rajendra  
+**Semester** Fall 2025
 
 - **GitHub Repository:** [UMBC-DATA606-Capstone](https://github.com/Nirvika12/UMBC-DATA606-Capstone)  
 - **LinkedIn Profile:** [LinkedIn-Nirvika](https://www.linkedin.com/in/nirvika-rajendra-70555b2b2/)  
