@@ -8,7 +8,7 @@
 - **GitHub Repository:** [UMBC-DATA606-Capstone](https://github.com/Nirvika12/UMBC-DATA606-Capstone)  
 - **LinkedIn Profile:** [LinkedIn-Nirvika](https://www.linkedin.com/in/nirvika-rajendra-70555b2b2/)  
 - **Presentation:** [PowerPoint Presentation](/docs/606-Capstone-Presentation.pptx)  
-- **YouTube:** [Youtube-Nirvika](https://www.youtube.com/watch?v=q3P-4F45NCo&t=811s)  
+- **YouTube:** [Youtube-Nirvika](https://www.youtube.com/watch?v=q3P-4F45NCo)  
 - **Streamlit Dashboard:** [Student Startup Success Predictor](https://umbc-data606-capstone-nirvika-rajendra-student-startup-succcess.streamlit.app/)
 
 ---
